@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/lib/com.hakunamatata"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <include android:id="@+id/tbPlacesEntities"
+            layout="@layout/toolbar"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:id="@+id/vPlacesEntities"
+            android:background="@android:color/black"
+            android:layout_below="@+id/tbPlacesEntities"/>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tlPlacesEntities"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            app:tabIndicatorColor="@color/colorPrimary"
+            app:tabMode ="scrollable"
+            app:tabIndicatorHeight="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@+id/vPlacesEntities"
+            android:background="#e5e5e5"
+            app:tabPaddingStart="0dp"
+            app:tabPaddingEnd="0dp"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:id="@+id/vTabPlacesEntities"
+            android:layout_below="@+id/tlPlacesEntities"
+            android:background="@android:color/black"/>
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vpPlacesEntities"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/vTabPlacesEntities" />
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

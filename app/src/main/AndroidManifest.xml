@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.user.planb">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <application
+        android:name=".ConnectivityStarter"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".LoginPage"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="com.user.planb.LOGINPAGE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SignupPage"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="com.user.planb.SIGNUPPAGE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".AddPlaces"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="com.user.planb.ADDPLACES" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainPage"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="com.user.planb.MAINPAGE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".PlacesEntities"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="com.user.planb.PLACESENTITIES" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".AddUserLivedPlaces"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden">
+        <intent-filter>
+            <action android:name="com.user.planb.ADDUSERLIVEDPLACES" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+        </activity>
+        <activity android:name=".PostQuery"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="com.user.planb.POSTQUERY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".QueryAnswers"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="com.user.planb.QUERYANSWERS" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".receiver.ConnectivityReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyATrNG3GfDIC4LgEDW8wdrCRlx7xQgWceo"/>
+    </application>
+</manifest>

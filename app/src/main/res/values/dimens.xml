@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textsizedefault">15dp</dimen>
+    <dimen name="margindefault">15dp</dimen>
+    <dimen name="marginleftdefault">15dp</dimen>
+    <dimen name="marginrightdefault">15dp</dimen>
+    <dimen name="margintopdefault">15dp</dimen>
+    <dimen name="marginbottomdefault">15dp</dimen>
+
+    <!--Login Page dimensions. -->
+    <dimen name="loginpage_textsize">16dp</dimen>
+    <dimen name="loginpage_externalloginheight">40dp</dimen>
+</resources>

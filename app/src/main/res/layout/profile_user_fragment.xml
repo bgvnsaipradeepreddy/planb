@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/lib/com.hakunamatata"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/textColorPrimry">
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:fillViewport="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffffff"
+                    android:id="@+id/rl1FragmentUserProfile">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/tvEditProfileName"
+                        android:text="Edit"
+                        android:textColor="@color/colorfb"
+                        />
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:id="@+id/ivFragmentUserProfile"
+                        android:layout_below="@+id/tvEditProfileName"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/ic_person"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvNameFragmentUserProfile"
+                        android:layout_marginTop="11dp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:textSize="20dp"
+                        android:text="Pradeep Reddy"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"
+                        android:layout_alignTop="@+id/ivFragmentUserProfile"
+                        android:layout_toRightOf="@+id/ivFragmentUserProfile"
+                        android:layout_toEndOf="@+id/ivFragmentUserProfile" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="30dp"
+                        android:id="@+id/tvStatusFragmentUserProfile"
+                        android:layout_below="@+id/ivFragmentUserProfile"
+                        android:textColor="@android:color/black"
+                        android:text="Ambidextrous, Procastinator, Software Engineer"/>
+
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.05dp"
+                    android:background="@color/textColorDark"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffffff"
+                    android:id="@+id/rl2FragmentUserProfile"
+                    android:layout_below="@+id/rl1UserProfile">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Highlights"
+                                android:layout_margin="7dp"
+                                android:textSize="17dp"
+                                android:textColor="@android:color/black"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/tvEditHighFragmentUserProfile"
+                                android:text="Edit"
+                                android:textSize="14dp"
+                                android:textColor="@color/colorfb"
+                                android:layout_marginRight="20dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="7dp"
+                                android:layout_alignParentRight="true"/>
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.05dp"
+                            android:background="@android:color/black"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/ivPlaceFragmentUserProfile"
+                                android:layout_width="14dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center_vertical"
+                                android:src="@drawable/ic_place" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="center_vertical"
+                                android:maxLines="1"
+                                android:textColor="@android:color/black"
+                                android:id="@+id/tvPlaceFragmentUserProfile"
+                                android:text="Lives in Bangalore"
+                                android:textSize="15dp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:id="@+id/ivStudyFragmentUserProfile"
+                                android:layout_width="14dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center_vertical"
+                                android:src="@drawable/ic_school" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="center_vertical"
+                                android:maxLines="1"
+                                android:textColor="@android:color/black"
+                                android:id="@+id/tvStudyFragmentUserProfile"
+                                android:text="Studied at Rishi High School, Pulivendula"
+                                android:textSize="15dp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:id="@+id/ivWorkFragmentUserProfile"
+                                android:layout_width="14dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center_vertical"
+                                android:src="@drawable/ic_work" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="center_vertical"
+                                android:textColor="@android:color/black"
+                                android:id="@+id/tvWorkFragmentUserProfile"
+                                android:text="Working as senior software engineer at mindteck software ltd"
+                                android:textSize="15dp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:id="@+id/ivLanguageFragmentUserProfile"
+                                android:layout_width="14dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center_vertical"
+                                android:src="@drawable/ic_language" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="center_vertical"
+                                android:textColor="@android:color/black"
+                                android:id="@+id/tvLanguageFragmentUserProfile"
+                                android:text="Language known telugu, english,kannada"
+                                android:textSize="15dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.05dp"
+                    android:background="@color/textColorDark"/>
+            </LinearLayout>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Logout"
+                android:id="@+id/bLogoutFragmentUserProfile"
+                android:background="@drawable/custom_border"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"/>
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

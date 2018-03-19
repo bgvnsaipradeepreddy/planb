@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">planb</string>
+    <string name="server">http://139.59.91.215/index.php/</string>
+</resources>

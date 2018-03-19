@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/planb"
+    android:id="@+id/rlMainActivity">
+    <include android:id="@+id/tbMainActivity"
+        layout="@layout/toolbar"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tbMainActivity"
+        android:background="#ffffff"
+        android:id="@+id/rlInternetMainActivity"
+        android:visibility="invisible"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No internet connectivity."
+            android:layout_gravity="center"
+            android:id="@+id/tvMainActivity"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="try again"
+            android:layout_below="@+id/tvMainActivity"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/bMainActivity"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            />
+    </RelativeLayout>
+</RelativeLayout>

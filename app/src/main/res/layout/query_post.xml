@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <include android:id="@+id/tbIncludePostQuery"
+        layout="@layout/toolbar_button"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TableRow
+            android:id="@+id/trPostQuery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:orientation="horizontal"
+            android:scrollbars="horizontal"
+            android:visibility="invisible">
+
+            <ImageButton
+                android:id="@+id/ibImagePostQuery"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="-4.5dp"
+                android:layout_marginRight="-4.5dp"
+                android:background="@android:color/white"
+                android:layout_weight="1"
+                android:src="@drawable/ic_addphoto" />
+
+            <ImageButton
+                android:id="@+id/ibBoldPostQuery"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="-4.5dp"
+                android:layout_marginRight="-4.5dp"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:src="@drawable/ic_format_bold" />
+
+            <ImageButton
+                android:id="@+id/ibItalicPostQuery"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="-4.5dp"
+                android:background="@android:color/white"
+                android:layout_marginRight="-4.5dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_format_italic" />
+
+            <ImageButton
+                android:id="@+id/ibUnderlinePostQuery"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="-4.5dp"
+                android:layout_marginRight="-4.5dp"
+                android:background="@android:color/white"
+                android:layout_weight="1"
+                android:src="@drawable/ic_format_underline" />
+
+            <ImageButton
+                android:id="@+id/ibHyperlinkPostQuery"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="-4.5dp"
+                android:layout_marginRight="-4.5dp"
+                android:background="@android:color/white"
+                android:layout_weight="1"
+                android:src="@drawable/ic_insert_link" />
+        </TableRow>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:background="@android:color/white"
+            android:layout_above="@+id/trPostQuery">
+        <LinearLayout
+            android:id="@+id/llPostQuery"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/trPostQuery"
+            android:background="@android:color/white"
+            android:orientation="vertical"
+            android:scrollbars="vertical">
+
+            <EditText
+                android:id="@+id/etTitlePostQuery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:hint="Query Title "
+                android:textStyle="bold"
+                android:inputType="textNoSuggestions|textMultiLine"
+                android:textSize="18dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="30dp"
+                android:background="@android:color/black" />
+
+
+            <EditText
+                android:id="@+id/etEventPostQuery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
+                android:gravity="start"
+                android:hint="Query Details"
+                android:inputType="textNoSuggestions|textMultiLine"
+                android:textSize="17dp"
+                />
+        </LinearLayout>
+        </ScrollView>
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="invisible"
+            android:id="@+id/pbPostQuery"/>
+    </RelativeLayout>
+</LinearLayout>

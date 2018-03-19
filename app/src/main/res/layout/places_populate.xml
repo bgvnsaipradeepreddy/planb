@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rlPopulatePlaces">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="pradeep reddy"
+            android:layout_centerVertical="true"
+            android:id="@+id/tvPopulatePlaces"
+            android:layout_margin="17dp"
+            android:textColor="@android:color/black"
+            android:textSize="18dp"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_delete"
+            android:id="@+id/ivPopulatePlaces"
+            android:layout_marginRight="15dp"/>
+    </RelativeLayout>
+</LinearLayout>
+
+
+
+

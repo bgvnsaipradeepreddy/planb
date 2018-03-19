@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:id="@+id/clAddPlaces">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/colorbgaddplaces" >
+        <include android:id="@+id/tbAddPlaces"
+            layout="@layout/toolbar_button"/>
+        <ExpandableListView
+            android:id="@+id/elvAddPlaces"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/tbAddPlaces" />
+        <ProgressBar
+            android:id="@+id/pbAddPlaces"
+            android:layout_width="80dip"
+            android:layout_height="80dip"
+            android:maxHeight="20dp"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
