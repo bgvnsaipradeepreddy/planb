@@ -106,6 +106,7 @@ public class FragmentMyPlaces extends Fragment {
         listView = (ListView) rootView.findViewById(R.id.lvFragmentMyPlaces);
 
         sessionManagement = new SessionManagement(getContext());
+        userId = sessionManagement.getUserId();
         place =sessionManagement.getSelPlaces();
         DataSource source = new DataSource(getContext());
         Map<Integer,String> key_name = new HashMap<>();
@@ -125,6 +126,7 @@ public class FragmentMyPlaces extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putInt("task",0);
                 bundle.putInt("already",1);
+                bundle.putInt("user_id", userId);
                 Intent i = new Intent("com.user.planb.ADDPLACES");
                 i.putExtras(bundle);
                 //startActivity(i);
@@ -190,7 +192,6 @@ public class FragmentMyPlaces extends Fragment {
                                         .setCancelable(false)
                                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
-                                                userId = sessionManagement.getUserId();
                                                 RequestPackage requestPackage = new RequestPackage();
                                                 requestPackage.setMethod("POST");
                                                 requestPackage.setUri(getResources().getString(R.string.server) + "deleteSelectedPlace");

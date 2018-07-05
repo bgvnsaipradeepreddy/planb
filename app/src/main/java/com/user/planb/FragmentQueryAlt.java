@@ -75,7 +75,7 @@ import java.util.List;
 
 import static com.user.planb.R.id.textView;
 
-public class FragmentQuery extends Fragment implements ConnectivityReceiver.ConnectivityReceiverListener,Serializable {
+public class FragmentQueryAlt extends Fragment implements ConnectivityReceiver.ConnectivityReceiverListener,Serializable {
 
     ProgressBar progressBar;
     String http_output;
@@ -93,16 +93,16 @@ public class FragmentQuery extends Fragment implements ConnectivityReceiver.Conn
     ArrayList<DataItems> dataItemses = new ArrayList<>();
     ArrayList<Integer> emerSel = new ArrayList<>();
 
-    public static FragmentQuery newInstance(int id) {
+    public static FragmentQueryAlt newInstance(int id) {
 
-        FragmentQuery fragment = new FragmentQuery();
+        FragmentQueryAlt fragment = new FragmentQueryAlt();
         Bundle args = new Bundle();
         args.putInt("place_id", id);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public FragmentQuery() {
+    public FragmentQueryAlt() {
     }
 
     @Override
@@ -241,7 +241,7 @@ public class FragmentQuery extends Fragment implements ConnectivityReceiver.Conn
 
         public PopulateQueries(Activity activity,ArrayList<DataItems> queries) {
 
-            super(activity, R.layout.queries_populate,queries);
+            super(activity, R.layout.queries_populate_alt,queries);
             li = activity.getWindow().getLayoutInflater();
             this.queries = queries;
         }
@@ -254,16 +254,16 @@ public class FragmentQuery extends Fragment implements ConnectivityReceiver.Conn
             ArrayList<Integer> answersIds = new ArrayList<>();
             final DataItems dataItems = queries.get(position);
             Log.e("position","position is "+position+"query is "+dataItems.getQueryTitle());
-            convertView = li.inflate(R.layout.queries_populate, parent, false);
+            convertView = li.inflate(R.layout.queries_populate_alt, parent, false);
             final String userName,userInfo,title,description;
             final int queryEmergency,queryId;
             title = dataItems.getQueryTitle();
-            TextView emergency = (TextView) convertView.findViewById(R.id.tvEmergencyPopulateQueries);
+            TextView emergency = (TextView) convertView.findViewById(R.id.tvEmergencyPopulateQueriesAlt);
 
-            TextView query = (TextView) convertView.findViewById(R.id.tvQueryPopulateQueries);
+            TextView query = (TextView) convertView.findViewById(R.id.tvQueryPopulateQueriesAlt);
             query.setText(title);
             description = dataItems.getQueryContent();
-            llEmergency = (LinearLayout) convertView.findViewById(R.id.llEmergencyPopulateQueries);
+            llEmergency = (LinearLayout) convertView.findViewById(R.id.llEmergencyPopulateQueriesAlt);
 
             final StyleSpan boldStyle = new StyleSpan(Typeface.BOLD);
             userName = "asked by "+dataItems.getQueryUserName();
@@ -284,7 +284,8 @@ public class FragmentQuery extends Fragment implements ConnectivityReceiver.Conn
                 }
             }
 
-            Button bYesEmergency = (Button) convertView.findViewById(R.id.bYesEmergencyPopulateQueries);
+
+            Button bYesEmergency = (Button) convertView.findViewById(R.id.bYesEmergencyPopulateQueriesAlt);
             bYesEmergency.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -313,128 +314,35 @@ public class FragmentQuery extends Fragment implements ConnectivityReceiver.Conn
 
             //Log.e("krishna","krishna"+finalAnswersIds1.size());//+"size "+finalAnswersIds1.size());
 
-            TextView askUser = (TextView) convertView.findViewById(R.id.tvAskUserPopulateQueries);
+            TextView askUser = (TextView) convertView.findViewById(R.id.tvAskUserPopulateQueriesAlt);
             askUser.setText(sb);
 
             userInfo = dataItems.getQueryUserInfo();
 
-            final TextView tvComments = (TextView) convertView.findViewById(R.id.tvCommentPopulateQueries);
             Boolean answerExist = dataItems.getAnswersExists();
             if(answerExist.equals(true)){
-                RelativeLayout rlAnswers = (RelativeLayout) convertView.findViewById(R.id.rlAnswersPopulateQueries);
+                RelativeLayout rlAnswers = (RelativeLayout) convertView.findViewById(R.id.rlAnswersPopulateQueriesAlt);
                 rlAnswers.setVisibility(View.VISIBLE);
 
                 answers = dataItems.getAnswers();
                 answersUserName = dataItems.getAnswersUsers();
                 answersUserIds = dataItems.getAnswersUserIds();
                 answersIds = dataItems.getAnswerIds();
-
-                ImageView img1 = (ImageView) convertView.findViewById(R.id.ivPopulateQueries);
-                Bitmap decodedByte;
-                if(position == 0) {
-                    decodedByte = BitmapFactory.decodeResource(getContext().getResources(),
-                            R.drawable.ic_person);
-                }else {
-                    decodedByte = BitmapFactory.decodeResource(getContext().getResources(),
-                            R.drawable.ic_person);
-                }
-
-                Bitmap resized = Bitmap.createScaledBitmap(decodedByte,80,80, true);
-                Bitmap conv_bm = getRoundedCornerBitmap(resized, 75);
-                img1.setImageBitmap(conv_bm);
-
-                TextView name = (TextView) convertView.findViewById(R.id.tvNamePopulateQueries);
-                name.setText(answersUserName.get(0));
-                ExpandableTextView expandableTextView = (ExpandableTextView) convertView.findViewById(R.id.etvDescriptionPopulateQueries);
-                expandableTextView.setText(answers.get(0));
-                final ArrayList<Integer> finalAnswersIds1 = dataItems.getAnswerIds();
-                final TextView bComment = (TextView) convertView.findViewById(R.id.tvAddCommentPopulateQueries);
-                bComment.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("answerId", finalAnswersIds1.get(0));
-                        Intent intent = new Intent("com.user.planb.POSTCOMMENT");
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-
-
-                    }
-                });
-/**                if(dataItems.getCommentExists()){
-                    tvComments.setVisibility(View.VISIBLE);
-                    int commentCount = dataItems.getComments().size();
-                    tvComments.setText(commentCount+" Comments");
-                }*/
-                expandableTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if(dataItems.getCommentExists()){
-                            tvComments.setVisibility(View.VISIBLE);
-                            int commentCount = dataItems.getComments().size();
-                            tvComments.setText(commentCount+" Comments");
-                        }
-                        bComment.setVisibility(View.VISIBLE);
-                    }
-                });
+                ExpandableTextView expandableTextView = (ExpandableTextView) convertView.findViewById(R.id.etvDescriptionPopulateQueriesAlt);
+                expandableTextView.setText(answers.size()+" answers available");
 
             }else {
-                RelativeLayout rlAnswers = (RelativeLayout) convertView.findViewById(R.id.rlAnswersPopulateQueries);
+                RelativeLayout rlAnswers = (RelativeLayout) convertView.findViewById(R.id.rlAnswersPopulateQueriesAlt);
                 rlAnswers.setVisibility(View.VISIBLE);
-                ImageView img1 = (ImageView) convertView.findViewById(R.id.ivPopulateQueries);
-                img1.setVisibility(View.GONE);
-                TextView name = (TextView) convertView.findViewById(R.id.tvNamePopulateQueries);
-                name.setVisibility(View.GONE);
-                ExpandableTextView expandableTextView = (ExpandableTextView) convertView.findViewById(R.id.etvDescriptionPopulateQueries);
+                ExpandableTextView expandableTextView = (ExpandableTextView) convertView.findViewById(R.id.etvDescriptionPopulateQueriesAlt);
                 expandableTextView.setText("No answers");
             }
-            TextView date = (TextView) convertView.findViewById(R.id.tvDatePopulateQueries);
+            TextView date = (TextView) convertView.findViewById(R.id.tvDatePopulateQueriesAlt);
             Date datePost = new Date();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             date.setText("Posted on "+sdf.format(datePost));
             //queryDetails = dataItems.getQueryContent();
 
-
-            tvComments.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    ArrayList<DataItems> commentsList = new ArrayList<>();
-                    commentsList.add(dataItems);
-                    ArrayList<String> comments = new ArrayList<>();
-                    ArrayList<Integer> commentIds = new ArrayList<>();
-                    ArrayList<String> commentUsers = new ArrayList<>();
-                    ArrayList<Integer> commentUserIds = new ArrayList<>();
-
-                    commentIds = dataItems.getCommentIds();
-                    comments = dataItems.getComments();
-                    commentUsers = dataItems.getCommentUsers();
-                    commentUserIds = dataItems.getCommentUserIds();
-                    ArrayList<DataItems> items = new ArrayList<DataItems>();
-                    for(int k=0;k<comments.size();k++){
-                        String comment = comments.get(k);
-                        Integer commentId = commentIds.get(k);;
-                        String commentUser = commentUsers.get(k);;
-                        Integer commentUserId = commentUserIds.get(k);;
-                        DataItems inditem = new DataItems();
-                        Log.e("mindteck","mindteck "+comment);
-                        inditem.setComment(comment);
-                        inditem.setCommentId(commentId);
-                        inditem.setCommentUser(commentUser);
-                        inditem.setCommentUserId(commentUserId);
-                        items.add(inditem);
-                    }
-
-
-                    DataSeralize dataSerialize = new DataSeralize();
-                    dataSerialize.setComments(items);
-
-                    Intent intent = new Intent("com.user.planb.DISPLAYCOMMENTS");
-                    Bundle bundle = new Bundle();
-                    intent.putExtra("serialize_data",dataSerialize);
-                    startActivity(intent);
-                }
-            });
 
             final ArrayList<String> finalAnswers = answers;
             final ArrayList<String> finalAnswersUserName = answersUserName;
@@ -458,77 +366,10 @@ public class FragmentQuery extends Fragment implements ConnectivityReceiver.Conn
                     startActivity(intent);
                 }
             });
-
-
-
             return convertView;
-        }
-        public  Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {
-            Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap
-                    .getHeight(), Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(output);
-            int width = bitmap.getWidth();
-            int height = bitmap.getHeight();
-            int borderWidth=2;
-            BitmapShader shader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-
-            Paint paint = new Paint();
-            paint.setAntiAlias(true);
-            paint.setShader(shader);
-
-            //Canvas canvas = new Canvas(canvasBitmap);
-            float radius = width > height ? ((float) height) / 2f : ((float) width) / 2f;
-            radius = radius-10;
-            Log.e("radius","radius"+radius);
-            canvas.drawCircle(width / 2, height / 2, radius, paint);
-            paint.setShader(null);
-            paint.setStyle(Paint.Style.STROKE);
-            paint.setColor(Color.BLACK);
-            paint.setStrokeWidth(borderWidth);
-            canvas.drawCircle(width / 2, height / 2, radius - borderWidth / 2, paint);
-            return output;
         }
 
     }
-
-
-
-
-
-    private class PopulateComments extends ArrayAdapter{
-
-        ArrayList<DataItems> commentsList = new ArrayList<>();
-        LayoutInflater li;
-        ArrayList<String> comment = new ArrayList<>();
-        ArrayList<Integer> commentIds = new ArrayList<>();
-        ArrayList<String> commentUsers = new ArrayList<>();
-        ArrayList<Integer> commentUserIds = new ArrayList<>();
-        public PopulateComments(Activity activity,ArrayList<DataItems> commentsList) {
-            super(activity, R.layout.comments_populate,commentsList);
-            li = activity.getWindow().getLayoutInflater();
-            this.commentsList = commentsList;
-            DataItems comments = commentsList.get(0);
-
-            commentIds = comments.getCommentIds();
-            comment = comments.getComments();
-            commentUsers = comments.getCommentUsers();
-            commentUserIds = comments.getCommentUserIds();
-            Log.e("planbsize","planb"+comment.size());
-        }
-
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-
-            convertView = li.inflate(R.layout.comments_populate, parent, false);
-            TextView tvCommentUser = (TextView) convertView.findViewById(R.id.tvNamePopulateComments);
-            ExpandableTextView etvComment = (ExpandableTextView) convertView.findViewById(R.id.etvDescriptionPopulateComments);
-            tvCommentUser.setText(commentUsers.get(position));
-            etvComment.setText(comment.get(position));
-            return convertView;
-        }
-    }
-
     private class GetQueries extends AsyncTask<RequestPackage,String,String> {
 
         @Override

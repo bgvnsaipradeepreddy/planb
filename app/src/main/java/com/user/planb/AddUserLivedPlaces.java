@@ -139,7 +139,6 @@ public class AddUserLivedPlaces extends AppCompatActivity {
         return true;
     }
 
-
     private void selectAPlace() {
 
         try {
@@ -151,7 +150,6 @@ public class AddUserLivedPlaces extends AppCompatActivity {
         } catch (GooglePlayServicesNotAvailableException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -177,7 +175,6 @@ public class AddUserLivedPlaces extends AppCompatActivity {
             etPlace.setText(str);
         }
     }
-
 
     class PopulateLivedPlaces extends ArrayAdapter {
         LayoutInflater li;
@@ -223,7 +220,6 @@ public class AddUserLivedPlaces extends AppCompatActivity {
             super.onPostExecute(content);
             DataItems dataItems = new DataItems();
             JsonParser jsonParser = new JsonParser();
-            Log.e("xxxxli","xx"+data+"xx");
             if(data == null){
                 progressBar.setVisibility(View.INVISIBLE);
                 progressBar.setVisibility(View.INVISIBLE);

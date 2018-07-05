@@ -85,6 +85,55 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".QueryUserAnswers"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="com.user.planb.QUERYUSERANSWERS" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".PostAnswer"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="com.user.planb.POSTANSWER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".DisplayComments"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="com.user.planb.DISPLAYCOMMENTS" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".PostComment"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="com.user.planb.POSTCOMMENT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".RidePost"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="com.user.planb.RIDEPOST" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".PoolResult"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="com.user.planb.POOLRESULT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <receiver
             android:name=".receiver.ConnectivityReceiver"

@@ -10,12 +10,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Shader;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.user.planb.ParserAndUtility.JsonParser;
+import com.user.planb.model.DataItems;
+import com.user.planb.receiver.ConnectivityReceiver;
+
+import org.json.JSONException;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,13 +42,14 @@ import java.util.Date;
  * Created by user on 3/13/2018.
  */
 
-public class QueryAnswers extends AppCompatActivity {
+public class QueryUserAnswers extends AppCompatActivity {
 
     PopulateQueryAnswers populateQueryAnswers;
     ListView listView;
     Toolbar toolbar;
     String userName,description,title;
     Button bAnswer;
+    String data,place,date;
     Integer queryId;
     ArrayList<String> answers = new ArrayList<>();
     ArrayList<String> answersUsers = new ArrayList<>();
@@ -51,12 +61,14 @@ public class QueryAnswers extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.answers_query);
         Bundle bundle = getIntent().getExtras();
-        userName=bundle.getString("userName");
+        //userName=bundle.getString("userName");
         title = bundle.getString("title");
         queryId = bundle.getInt("queryId");
         description = bundle.getString("description");
         answers = bundle.getStringArrayList("answers");
         answersUsers = bundle.getStringArrayList("answersUserName");
+        place = bundle.getString("placeName");
+
 
         LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View header = inflater.inflate(R.layout.answers_query_header,null);
@@ -65,7 +77,17 @@ public class QueryAnswers extends AppCompatActivity {
         ExpandableTextView etv = header.findViewById(R.id.etvHeaderQueryAnswers);
         bAnswer = (Button) header.findViewById(R.id.bAnswerHeaderQueryAnswers);
         TextView tvTitle = header.findViewById(R.id.tvHeaderQueryAnswers);
-        askedUser.setText(userName);
+        TextView placeName = header.findViewById(R.id.tvPlaceHeaderQueryAnswers);
+        placeName.setVisibility(View.VISIBLE);
+        placeName.setText(place);
+        TextView datePosted = header.findViewById(R.id.tvDateHeaderQueryAnswers);
+        datePosted.setVisibility(View.VISIBLE);
+        Date datePost = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        datePosted.setText("Posted on "+sdf.format(datePost));
+        askedUser.setVisibility(View.GONE);
+        bAnswer.setVisibility(View.GONE);
+        //askedUser.setText(userName);
         tvTitle.setText(title);
         if(description != null && !description.isEmpty()){
             etv.setVisibility(View.VISIBLE);
@@ -80,7 +102,7 @@ public class QueryAnswers extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         listView = (ListView) findViewById(R.id.lvQueryAnswers);
-        populateQueryAnswers = new PopulateQueryAnswers(QueryAnswers.this,answers,answersUsers,answersIds,answersUserIds,count);
+        populateQueryAnswers = new PopulateQueryAnswers(QueryUserAnswers.this,answers,answersUsers,answersIds,answersUserIds,count);
         listView.addHeaderView(header);
         listView.setAdapter(populateQueryAnswers);
 
@@ -100,9 +122,43 @@ public class QueryAnswers extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem)
     {
-        onBackPressed();
+        switch (menuItem.getItemId()){
+/**
+            case R.id.deleteQuery:
+                if(checkConnection()) {
+                    String id = Integer.toString(queryId);
+                    RequestPackage requestPackage = new RequestPackage();
+                    requestPackage.setMethod("POST");
+                    requestPackage.setUri(getResources().getString(R.string.server) + "deleteUserQuery");
+                    requestPackage.setParam("queryId", id);
+                    QueryUserAnswers.DeleteQueries deleteQueries = new QueryUserAnswers.DeleteQueries();
+                    deleteQueries.execute(requestPackage);
+
+                }else {
+
+                    Toast.makeText(QueryUserAnswers.this, "No internet connection", Toast.LENGTH_LONG).show();
+                }
+                return true;
+ */
+            default:
+                onBackPressed();
+                return true;
+        }
+
+    }
+
+    private boolean checkConnection() {
+        Log.e("saireddy4","saireddy");
+        boolean isConnected = ConnectivityReceiver.isConnected();
+        return isConnected;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.query_user_menu, menu);
         return true;
     }
+
     class PopulateQueryAnswers extends ArrayAdapter {
         LayoutInflater li;
         Context context;
@@ -180,6 +236,50 @@ public class QueryAnswers extends AppCompatActivity {
         }
 
 
+    }
+
+    private class DeleteQueries extends AsyncTask<RequestPackage,String,String> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected String doInBackground(RequestPackage... params) {
+
+            HttpManager httpManager = new HttpManager();
+            data = httpManager.getData(params[0]);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String content) {
+            super.onPostExecute(content);
+            DataItems dataItems = new DataItems();
+            JsonParser jsonParser = new JsonParser();
+            if(data == null){
+                //progressBar.setVisibility(View.INVISIBLE);
+                //progressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(QueryUserAnswers.this, "Cannot delete place. Please try after sometime", Toast.LENGTH_LONG).show();
+            }else {
+                Log.e("xxxx11", "xx" + data);
+                try {
+                    dataItems = jsonParser.parseDeleteSelPlacesFeed(data);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Log.e("xxxx22", "xx" + dataItems.getDeleteSelPlacesStatus());
+                if (dataItems.getDeleteSelPlacesStatus().equals("successful")) {
+                    Toast.makeText(QueryUserAnswers.this, "Query deleted", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(QueryUserAnswers.this, "Cannot delete query. Please try after sometime", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
     }
 
 }

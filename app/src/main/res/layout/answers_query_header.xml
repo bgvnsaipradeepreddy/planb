@@ -8,11 +8,34 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:id="@+id/tvPlaceHeaderQueryAnswers"
+            android:textColor="@android:color/black"
+            android:background="@drawable/border_custom"
+            android:visibility="gone"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:padding="3dp"
+            android:textSize="8dp"
+            android:layout_alignParentLeft="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvDateHeaderQueryAnswers"
+            android:textColor="@android:color/black"
+            android:visibility="gone"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:padding="3dp"
+            android:textSize="8dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/tvUserHeaderQueryAnswers"
             android:textSize="12dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -40,12 +63,24 @@
             android:layout_alignParentLeft="true"
             />
     </LinearLayout>
+    <Button
+        android:layout_width="80dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/llHeaderQueryAnswers"
+        android:id="@+id/bAnswerHeaderQueryAnswers"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="Answer"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/rlQueryAnswers"
-        android:layout_below="@+id/llHeaderQueryAnswers">
+        android:layout_below="@+id/bAnswerHeaderQueryAnswers">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

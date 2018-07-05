@@ -26,6 +26,7 @@ public class DataItems {
     private String loginUserStatus;
     private String loginErrorMsg;
     private List<Integer> userSelectedPlaces;
+    private List<Integer> userEmeSelected;
 
     public String getLoginStatus() {
         return loginStatus;
@@ -73,6 +74,14 @@ public class DataItems {
 
     public void setLoginUserStatus(String loginUserStatus) {
         this.loginUserStatus = loginUserStatus;
+    }
+
+    public List<Integer> getUserEmeSelected() {
+        return userEmeSelected;
+    }
+
+    public void setUserEmeSelected(List<Integer> userEmeSelected) {
+        this.userEmeSelected = userEmeSelected;
     }
 
     /*************************************************************
@@ -206,6 +215,7 @@ public class DataItems {
     private int queryId;
     private String queryUserName;
     private int queryUserId;
+    private int queryPlaceId;
     private String queryDatePosted;
     private String queryTitle;
     private String queryContent;
@@ -220,6 +230,14 @@ public class DataItems {
 
     public void setQueryId(int queryId) {
         this.queryId = queryId;
+    }
+
+    public int getQueryPlaceId() {
+        return queryPlaceId;
+    }
+
+    public void setQueryPlaceId(int queryPlaceId) {
+        this.queryPlaceId = queryPlaceId;
     }
 
     public int getQueryUserId() {
@@ -394,5 +412,231 @@ public class DataItems {
 
     public void setAnswerIds(ArrayList<Integer> answerIds) {
         this.answerIds = answerIds;
+    }
+
+    private Boolean commentExists;
+
+    public Boolean getCommentExists() {
+        return commentExists;
+    }
+
+    public void setCommentExists(Boolean commentExists) {
+        this.commentExists = commentExists;
+    }
+
+
+    private ArrayList<String> comments;
+    private ArrayList<Integer> commentIds;
+    private ArrayList<String> commentUsers;
+    private ArrayList<Integer> commentUserIds;
+
+    public ArrayList<String> getComments() {
+        return comments;
+    }
+
+    public void setComments(ArrayList<String> comments) {
+        this.comments = comments;
+    }
+
+    public ArrayList<Integer> getCommentIds() {
+        return commentIds;
+    }
+
+    public void setCommentIds(ArrayList<Integer> commentIds) {
+        this.commentIds = commentIds;
+    }
+
+    public ArrayList<String> getCommentUsers() {
+        return commentUsers;
+    }
+
+    public void setCommentUsers(ArrayList<String> commentUsers) {
+        this.commentUsers = commentUsers;
+    }
+
+    public ArrayList<Integer> getCommentUserIds() {
+        return commentUserIds;
+    }
+
+    public void setCommentUserIds(ArrayList<Integer> commentUserIds) {
+        this.commentUserIds = commentUserIds;
+    }
+
+    private String Comment;
+    private Integer commentId;
+    private String commentUser;
+    private Integer commentUserId;
+
+    public String getComment() {
+        return Comment;
+    }
+
+    public void setComment(String comment) {
+        Comment = comment;
+    }
+
+    public Integer getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(Integer commentId) {
+        this.commentId = commentId;
+    }
+
+    public String getCommentUser() {
+        return commentUser;
+    }
+
+    public void setCommentUser(String commentUser) {
+        this.commentUser = commentUser;
+    }
+
+    public Integer getCommentUserId() {
+        return commentUserId;
+    }
+
+    public void setCommentUserId(Integer commentUserId) {
+        this.commentUserId = commentUserId;
+    }
+
+
+    private String poolStatus;
+
+    public String getPoolStatus() {
+        return poolStatus;
+    }
+
+    public void setPoolStatus(String poolStatus) {
+        this.poolStatus = poolStatus;
+    }
+
+
+
+    private String poolExists;
+
+    public String getPoolExists() {
+        return poolExists;
+    }
+
+    public void setPoolExists(String poolExists) {
+        this.poolExists = poolExists;
+    }
+
+    private int poolId;
+    private String poolUserName;
+    private int poolCost;
+    private String poolDstAddress;
+    private String poolDstPlace;
+    private String poolStartAddress;
+    private int poolSeats;
+    private String poolStartDate;
+    private String poolStartTime;
+    private String poolUserComments;
+    private int poolType;
+    private int poolEmailVerification;
+    private int poolPhoneVerification;
+
+    public int getPoolId() {
+        return poolId;
+    }
+
+    public void setPoolId(int poolId) {
+        this.poolId = poolId;
+    }
+
+    public String getPoolUserName() {
+        return poolUserName;
+    }
+
+    public void setPoolUserName(String poolUserName) {
+        this.poolUserName = poolUserName;
+    }
+
+    public int getPoolCost() {
+        return poolCost;
+    }
+
+    public void setPoolCost(int poolCost) {
+        this.poolCost = poolCost;
+    }
+
+    public String getPoolDstAddress() {
+        return poolDstAddress;
+    }
+
+    public void setPoolDstAddress(String poolDstAddress) {
+        this.poolDstAddress = poolDstAddress;
+    }
+
+    public String getPoolDstPlace() {
+        return poolDstPlace;
+    }
+
+    public void setPoolDstPlace(String poolDstPlace) {
+        this.poolDstPlace = poolDstPlace;
+    }
+
+    public String getPoolStartAddress() {
+        return poolStartAddress;
+    }
+
+    public void setPoolStartAddress(String poolStartAddress) {
+        this.poolStartAddress = poolStartAddress;
+    }
+
+    public int getPoolSeats() {
+        return poolSeats;
+    }
+
+    public void setPoolSeats(int poolSeats) {
+        this.poolSeats = poolSeats;
+    }
+
+    public String getPoolStartDate() {
+        return poolStartDate;
+    }
+
+    public void setPoolStartDate(String poolStartDate) {
+        this.poolStartDate = poolStartDate;
+    }
+
+    public String getPoolStartTime() {
+        return poolStartTime;
+    }
+
+    public void setPoolStartTime(String poolStartTime) {
+        this.poolStartTime = poolStartTime;
+    }
+
+    public String getPoolUserComments() {
+        return poolUserComments;
+    }
+
+    public void setPoolUserComments(String poolUserComments) {
+        this.poolUserComments = poolUserComments;
+    }
+
+    public int getPoolType() {
+        return poolType;
+    }
+
+    public void setPoolType(int poolType) {
+        this.poolType = poolType;
+    }
+
+    public int getPoolEmailVerification() {
+        return poolEmailVerification;
+    }
+
+    public void setPoolEmailVerification(int poolEmailVerification) {
+        this.poolEmailVerification = poolEmailVerification;
+    }
+
+    public int getPoolPhoneVerification() {
+        return poolPhoneVerification;
+    }
+
+    public void setPoolPhoneVerification(int poolPhoneVerification) {
+        this.poolPhoneVerification = poolPhoneVerification;
     }
 }

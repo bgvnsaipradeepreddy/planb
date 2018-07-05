@@ -110,7 +110,7 @@ public class PlacesEntities extends AppCompatActivity {
             switch (position) {
                 case 0:
 //                    return FragmentQueries.newInstance(userId,selectedPlace);
-                    return FragmentQuery.newInstance(place_id);
+                    return FragmentQueryAlt.newInstance(place_id);
                 case 1:
 //                    return FragmentEvents.newInstance(userId,selectedPlace);
                     return FragmentQuery.newInstance(place_id);
@@ -118,7 +118,7 @@ public class PlacesEntities extends AppCompatActivity {
                     //return FragmentClimate.newInstance(userId,selectedPlace);
                     return FragmentQuery.newInstance(place_id);
                 case 3:
-                    return FragmentQuery.newInstance(place_id);
+                    return FragmentPool.newInstance(place_id,selectedPlace);
                 case 4:
                     return FragmentQuery.newInstance(place_id);
                 case 5:

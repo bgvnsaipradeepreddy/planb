@@ -66,6 +66,7 @@ public class SessionManagement {
 
     public static final String PLACES_LIVED = "placesLived";
 
+    public static final String QUERIES_USER_SELECTED = "userEmeSelected";
     // Constructor
     public SessionManagement(Context context) {
         this._context = context;
@@ -200,4 +201,21 @@ public class SessionManagement {
         int userId = pref.getInt(KEY_ID,0);
         return userId;
     }
+
+    public void saveUserEmeQueries(List<Integer> queries){
+
+        Gson gson = new Gson();
+        String json = gson.toJson(queries);
+        editor.putString(QUERIES_USER_SELECTED, json);
+        editor.commit();     // This line is IMPORTANT !!!
+    }
+    public ArrayList<Integer> getUserEmeQueries(){
+        Gson gson = new Gson();
+        List<Integer> places = new ArrayList<>();
+        String j = gson.toJson(places);
+        String json = pref.getString(QUERIES_USER_SELECTED, j);
+        Type type = new TypeToken<ArrayList<Integer>>() {}.getType();
+        return gson.fromJson(json, type);
+    }
+
 }

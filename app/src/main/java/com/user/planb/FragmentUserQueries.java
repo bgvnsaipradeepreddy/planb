@@ -7,7 +7,6 @@ package com.user.planb;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,13 +23,9 @@ import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
@@ -63,46 +58,39 @@ import com.user.planb.database.DataSource;
 import com.user.planb.model.ContentData;
 import com.user.planb.model.DataItems;
 import com.user.planb.receiver.ConnectivityReceiver;
-import com.user.planb.DataSeralize;
 
 import org.json.JSONException;
-
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import static com.user.planb.R.id.textView;
 
-public class FragmentQuery extends Fragment implements ConnectivityReceiver.ConnectivityReceiverListener,Serializable {
+public class FragmentUserQueries extends Fragment implements ConnectivityReceiver.ConnectivityReceiverListener {
 
     ProgressBar progressBar;
     String http_output;
-    String http_output1;
     ListView listView;
     LinearLayout llInternet;
-    LinearLayout llEmergency;
     PopulateQueries populateQueries;
     TextView tvInternet;
     View view;
     View header;
-    int place_id,userId;
+    int user_id;
     Button bInternet;
     FloatingActionButton fabquery;
     ArrayList<DataItems> dataItemses = new ArrayList<>();
-    ArrayList<Integer> emerSel = new ArrayList<>();
 
-    public static FragmentQuery newInstance(int id) {
+    public static FragmentUserQueries newInstance(int id) {
 
-        FragmentQuery fragment = new FragmentQuery();
+        FragmentUserQueries fragment = new FragmentUserQueries();
         Bundle args = new Bundle();
-        args.putInt("place_id", id);
+        args.putInt("user_id", id);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public FragmentQuery() {
+    public FragmentUserQueries() {
     }
 
     @Override
@@ -126,9 +114,8 @@ public class FragmentQuery extends Fragment implements ConnectivityReceiver.Conn
         bInternet = (Button) view.findViewById(R.id.bInternetFragmentQuery);
         progressBar = (ProgressBar) view.findViewById(R.id.pbFragmentQuery);
         progressBar.setVisibility(View.VISIBLE);
-        place_id = getArguments().getInt("place_id");
-        SessionManagement sessionManagement = new SessionManagement(getActivity());
-        userId = sessionManagement.getUserId();
+        user_id = getArguments().getInt("user_id");
+
         header = inflater.inflate(R.layout.header_query,null);
         RelativeLayout rlHeader = (RelativeLayout) header.findViewById(R.id.rlQueryHeader);
         TextView tvHeader = (TextView) header.findViewById(R.id.tvQueryHeader);
@@ -139,28 +126,15 @@ public class FragmentQuery extends Fragment implements ConnectivityReceiver.Conn
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         setHasOptionsMenu(true);
 
-        emerSel = sessionManagement.getUserEmeQueries();
-        //fabquery = (FloatingActionButton) view.findViewById(R.id.fabFragmetQuery);
-        rlHeader.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("place_id",place_id);
-                Intent intent = new Intent("com.user.planb.POSTQUERY");
-                //Intent intent = new Intent("com.hakunamatata.hakunamatata.EXPANDEXAMPLE");
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
 
         if(checkConnection()) {
 
-            String placeId = Integer.toString(place_id);
-            Log.e("saireddy2","saireddy"+placeId);
+            String userId = Integer.toString(user_id);
+            Log.e("saireddy2","saireddy"+userId);
             RequestPackage requestPackage = new RequestPackage();
             requestPackage.setMethod("POST");
-            requestPackage.setUri(getResources().getString(R.string.server) + "getQueries");
-            requestPackage.setParam("placeId", placeId);
+            requestPackage.setUri(getResources().getString(R.string.server) + "getUserQueries");
+            requestPackage.setParam("userId", userId);
             GetQueries getQueries = new GetQueries();
             getQueries.execute(requestPackage);
 
@@ -226,7 +200,7 @@ public class FragmentQuery extends Fragment implements ConnectivityReceiver.Conn
             llInternet.setVisibility(View.INVISIBLE);
             //populateQueries = new PopulateQueries(getActivity(), dataItemses);
             //listView.setAdapter(populateQueries);
-            listView.addHeaderView(header);
+            //listView.addHeaderView(header);
         }else {
             Log.e("saireddy8","saireddy");
             listView.setVisibility(View.INVISIBLE);
@@ -252,74 +226,40 @@ public class FragmentQuery extends Fragment implements ConnectivityReceiver.Conn
             ArrayList<String> answersUserName = new ArrayList<>();
             ArrayList<Integer> answersUserIds = new ArrayList<>();
             ArrayList<Integer> answersIds = new ArrayList<>();
-            final DataItems dataItems = queries.get(position);
+            DataItems dataItems = new DataItems();
+            dataItems = queries.get(position);
             Log.e("position","position is "+position+"query is "+dataItems.getQueryTitle());
             convertView = li.inflate(R.layout.queries_populate, parent, false);
             final String userName,userInfo,title,description;
             final int queryEmergency,queryId;
             title = dataItems.getQueryTitle();
-            TextView emergency = (TextView) convertView.findViewById(R.id.tvEmergencyPopulateQueries);
-
             TextView query = (TextView) convertView.findViewById(R.id.tvQueryPopulateQueries);
+
             query.setText(title);
             description = dataItems.getQueryContent();
-            llEmergency = (LinearLayout) convertView.findViewById(R.id.llEmergencyPopulateQueries);
+            LinearLayout llEmergency = (LinearLayout) convertView.findViewById(R.id.llEmergencyPopulateQueries);
+            queryEmergency = dataItems.getQueryEmergency();
+            llEmergency.setVisibility(View.GONE);
+
 
             final StyleSpan boldStyle = new StyleSpan(Typeface.BOLD);
-            userName = "asked by "+dataItems.getQueryUserName();
-            SpannableStringBuilder sb = new SpannableStringBuilder(userName);
-            int start = userName.indexOf(dataItems.getQueryUserName());
-            int end = start + dataItems.getQueryUserName().length();
-            sb.setSpan(boldStyle, start, end, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
             queryId = dataItems.getQueryId();
-            queryEmergency = dataItems.getQueryEmergency();
-            if(queryEmergency > 5){
-                llEmergency.setVisibility(View.GONE);
-                emergency.setVisibility(View.VISIBLE);
-            } else {
-                if(emerSel.contains(queryId)){
-                    llEmergency.setVisibility(View.GONE);
-                }else{
-                    llEmergency.setVisibility(View.VISIBLE);
-                }
-            }
 
-            Button bYesEmergency = (Button) convertView.findViewById(R.id.bYesEmergencyPopulateQueries);
-            bYesEmergency.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    emerSel.add(queryId);
-                    if(checkConnection()) {
-                        String query = Integer.toString(queryId);
-                        String user = Integer.toString(userId);
-                        RequestPackage requestPackage = new RequestPackage();
-                        requestPackage.setMethod("POST");
-                        requestPackage.setUri(getResources().getString(R.string.server) + "addUserSelectedEmer");
-                        requestPackage.setParam("query_id", query);
-                        requestPackage.setParam("user_id", user);
-                        AddEmergency addEmergency = new AddEmergency();
-                        addEmergency.execute(requestPackage);
-
-                    }else {
-                        Log.e("saireddy3","saireddy");
-                        listView.setVisibility(View.INVISIBLE);
-                        llInternet.setVisibility(View.VISIBLE);
-                    }
-
-                }
-            });
-
-
-            //Log.e("krishna","krishna"+finalAnswersIds1.size());//+"size "+finalAnswersIds1.size());
-
+            TextView place = (TextView) convertView.findViewById(R.id.tvPlacePopulateQueries);
+            int placeId = dataItems.getQueryPlaceId();
+            DataSource dataSource = new DataSource(getActivity());
+            final String placeName = dataSource.getPlaceNameFromId(placeId);
+            place.setVisibility(View.VISIBLE);
+            place.setText(placeName);
             TextView askUser = (TextView) convertView.findViewById(R.id.tvAskUserPopulateQueries);
-            askUser.setText(sb);
+            askUser.setVisibility(View.GONE);
+            //askUser.setText(sb);
 
             userInfo = dataItems.getQueryUserInfo();
 
-            final TextView tvComments = (TextView) convertView.findViewById(R.id.tvCommentPopulateQueries);
+
             Boolean answerExist = dataItems.getAnswersExists();
+            ExpandableTextView expandableTextView = (ExpandableTextView) convertView.findViewById(R.id.etvDescriptionPopulateQueries);
             if(answerExist.equals(true)){
                 RelativeLayout rlAnswers = (RelativeLayout) convertView.findViewById(R.id.rlAnswersPopulateQueries);
                 rlAnswers.setVisibility(View.VISIBLE);
@@ -345,39 +285,7 @@ public class FragmentQuery extends Fragment implements ConnectivityReceiver.Conn
 
                 TextView name = (TextView) convertView.findViewById(R.id.tvNamePopulateQueries);
                 name.setText(answersUserName.get(0));
-                ExpandableTextView expandableTextView = (ExpandableTextView) convertView.findViewById(R.id.etvDescriptionPopulateQueries);
                 expandableTextView.setText(answers.get(0));
-                final ArrayList<Integer> finalAnswersIds1 = dataItems.getAnswerIds();
-                final TextView bComment = (TextView) convertView.findViewById(R.id.tvAddCommentPopulateQueries);
-                bComment.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("answerId", finalAnswersIds1.get(0));
-                        Intent intent = new Intent("com.user.planb.POSTCOMMENT");
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-
-
-                    }
-                });
-/**                if(dataItems.getCommentExists()){
-                    tvComments.setVisibility(View.VISIBLE);
-                    int commentCount = dataItems.getComments().size();
-                    tvComments.setText(commentCount+" Comments");
-                }*/
-                expandableTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if(dataItems.getCommentExists()){
-                            tvComments.setVisibility(View.VISIBLE);
-                            int commentCount = dataItems.getComments().size();
-                            tvComments.setText(commentCount+" Comments");
-                        }
-                        bComment.setVisibility(View.VISIBLE);
-                    }
-                });
-
             }else {
                 RelativeLayout rlAnswers = (RelativeLayout) convertView.findViewById(R.id.rlAnswersPopulateQueries);
                 rlAnswers.setVisibility(View.VISIBLE);
@@ -385,7 +293,7 @@ public class FragmentQuery extends Fragment implements ConnectivityReceiver.Conn
                 img1.setVisibility(View.GONE);
                 TextView name = (TextView) convertView.findViewById(R.id.tvNamePopulateQueries);
                 name.setVisibility(View.GONE);
-                ExpandableTextView expandableTextView = (ExpandableTextView) convertView.findViewById(R.id.etvDescriptionPopulateQueries);
+                Log.e("entered else","else");
                 expandableTextView.setText("No answers");
             }
             TextView date = (TextView) convertView.findViewById(R.id.tvDatePopulateQueries);
@@ -393,48 +301,10 @@ public class FragmentQuery extends Fragment implements ConnectivityReceiver.Conn
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             date.setText("Posted on "+sdf.format(datePost));
             //queryDetails = dataItems.getQueryContent();
-
-
-            tvComments.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    ArrayList<DataItems> commentsList = new ArrayList<>();
-                    commentsList.add(dataItems);
-                    ArrayList<String> comments = new ArrayList<>();
-                    ArrayList<Integer> commentIds = new ArrayList<>();
-                    ArrayList<String> commentUsers = new ArrayList<>();
-                    ArrayList<Integer> commentUserIds = new ArrayList<>();
-
-                    commentIds = dataItems.getCommentIds();
-                    comments = dataItems.getComments();
-                    commentUsers = dataItems.getCommentUsers();
-                    commentUserIds = dataItems.getCommentUserIds();
-                    ArrayList<DataItems> items = new ArrayList<DataItems>();
-                    for(int k=0;k<comments.size();k++){
-                        String comment = comments.get(k);
-                        Integer commentId = commentIds.get(k);;
-                        String commentUser = commentUsers.get(k);;
-                        Integer commentUserId = commentUserIds.get(k);;
-                        DataItems inditem = new DataItems();
-                        Log.e("mindteck","mindteck "+comment);
-                        inditem.setComment(comment);
-                        inditem.setCommentId(commentId);
-                        inditem.setCommentUser(commentUser);
-                        inditem.setCommentUserId(commentUserId);
-                        items.add(inditem);
-                    }
-
-
-                    DataSeralize dataSerialize = new DataSeralize();
-                    dataSerialize.setComments(items);
-
-                    Intent intent = new Intent("com.user.planb.DISPLAYCOMMENTS");
-                    Bundle bundle = new Bundle();
-                    intent.putExtra("serialize_data",dataSerialize);
-                    startActivity(intent);
-                }
-            });
+            TextView emergency = (TextView) convertView.findViewById(R.id.tvEmergencyPopulateQueries);
+            if(queryEmergency == 1){
+                emergency.setVisibility(View.VISIBLE);
+            }
 
             final ArrayList<String> finalAnswers = answers;
             final ArrayList<String> finalAnswersUserName = answersUserName;
@@ -444,7 +314,7 @@ public class FragmentQuery extends Fragment implements ConnectivityReceiver.Conn
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
-                    bundle.putString("userName",userName);
+                    //bundle.putString("userName",userName);
                     bundle.putString("title",title);
                     bundle.putInt("queryId",queryId);
                     bundle.putString("description",description);
@@ -452,8 +322,9 @@ public class FragmentQuery extends Fragment implements ConnectivityReceiver.Conn
                     bundle.putStringArrayList("answersUserName", finalAnswersUserName);
                     bundle.putIntegerArrayList("answerUserIds", finalAnswersUserIds);
                     bundle.putIntegerArrayList("answerIds", finalAnswersIds);
+                    bundle.putString("placeName",placeName);
                     bundle.putInt("query_emergency",queryEmergency);
-                    Intent intent = new Intent("com.user.planb.QUERYANSWERS");
+                    Intent intent = new Intent("com.user.planb.QUERYUSERANSWERS");
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }
@@ -487,45 +358,6 @@ public class FragmentQuery extends Fragment implements ConnectivityReceiver.Conn
             paint.setStrokeWidth(borderWidth);
             canvas.drawCircle(width / 2, height / 2, radius - borderWidth / 2, paint);
             return output;
-        }
-
-    }
-
-
-
-
-
-    private class PopulateComments extends ArrayAdapter{
-
-        ArrayList<DataItems> commentsList = new ArrayList<>();
-        LayoutInflater li;
-        ArrayList<String> comment = new ArrayList<>();
-        ArrayList<Integer> commentIds = new ArrayList<>();
-        ArrayList<String> commentUsers = new ArrayList<>();
-        ArrayList<Integer> commentUserIds = new ArrayList<>();
-        public PopulateComments(Activity activity,ArrayList<DataItems> commentsList) {
-            super(activity, R.layout.comments_populate,commentsList);
-            li = activity.getWindow().getLayoutInflater();
-            this.commentsList = commentsList;
-            DataItems comments = commentsList.get(0);
-
-            commentIds = comments.getCommentIds();
-            comment = comments.getComments();
-            commentUsers = comments.getCommentUsers();
-            commentUserIds = comments.getCommentUserIds();
-            Log.e("planbsize","planb"+comment.size());
-        }
-
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-
-            convertView = li.inflate(R.layout.comments_populate, parent, false);
-            TextView tvCommentUser = (TextView) convertView.findViewById(R.id.tvNamePopulateComments);
-            ExpandableTextView etvComment = (ExpandableTextView) convertView.findViewById(R.id.etvDescriptionPopulateComments);
-            tvCommentUser.setText(commentUsers.get(position));
-            etvComment.setText(comment.get(position));
-            return convertView;
         }
     }
 
@@ -565,32 +397,17 @@ public class FragmentQuery extends Fragment implements ConnectivityReceiver.Conn
                 if (dataItems.getQueryExists().equals("successful")) {
                     try {
                         Log.e("dataitmeses1","data"+dataItemses);
-                        dataItemses = jsonParser.parseQueryFeed(http_output,userId);
+                        dataItemses = jsonParser.parseQueryFeed(http_output,0);
                         Log.e("dataitmeses2","data");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    //DataItems da = dataItemses.get(1);
+                    //DataItems da = dataItemses.get(0);
                     //Log.e("position00","0"+da.getQueryTitle());
                     progressBar.setVisibility(View.INVISIBLE);
-                    Log.e("insideelse","isideelse"+dataItemses.size());
-
-                    if(dataItemses.size()>0) {
-
-                        Log.e("insideif","if");
-                        populateQueries = new PopulateQueries(getActivity(), dataItemses);
-                        listView.setAdapter(populateQueries);
-                        listView.addHeaderView(header);
-
-                    }else {
-                        Log.e("insideelse","isideelse");
-                        llInternet.setVisibility(View.VISIBLE);
-                        tvInternet.setText("There are no queries posted by other guys. If you have added any queries check those in you profile");
-                        bInternet.setVisibility(View.INVISIBLE);
-                        populateQueries = new PopulateQueries(getActivity(), dataItemses);
-                        listView.setAdapter(populateQueries);
-                        listView.addHeaderView(header);
-                    }
+                    populateQueries = new PopulateQueries(getActivity(), dataItemses);
+                    listView.setAdapter(populateQueries);
+                    //listView.addHeaderView(header);
                 } else {
                     progressBar.setVisibility(View.INVISIBLE);
                     //listView.setVisibility(View.INVISIBLE);
@@ -599,57 +416,10 @@ public class FragmentQuery extends Fragment implements ConnectivityReceiver.Conn
                     bInternet.setVisibility(View.INVISIBLE);
                     populateQueries = new PopulateQueries(getActivity(), dataItemses);
                     listView.setAdapter(populateQueries);
-                    listView.addHeaderView(header);
+                    //listView.addHeaderView(header);
                 }
             }
         }
     }
 
-    private class AddEmergency extends AsyncTask<RequestPackage,String,String> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressBar.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected String doInBackground(RequestPackage... params) {
-
-            HttpManager httpManager = new HttpManager();
-            http_output1 = httpManager.getData(params[0]);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String content) {
-            super.onPostExecute(content);
-            DataItems dataItems = new DataItems();
-
-            JsonParser jsonParser = new JsonParser();
-            if (http_output1 == null) {
-                progressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(getActivity(), "Maintainence activity is in progress. Please try after sometime", Toast.LENGTH_LONG).show();
-            } else {
-
-                try {
-                    dataItems = jsonParser.parseAddLivedPlacesFeed(http_output1);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                Log.e("pradeepreddyg", "pradeepreddyg" + dataItems);
-                if (dataItems.getDeleteSelPlacesStatus().equals("successful")) {
-                    llEmergency.setVisibility(View.GONE);
-                    progressBar.setVisibility(View.INVISIBLE);
-                    SessionManagement sessionManagement = new SessionManagement(getActivity());
-                    sessionManagement.saveUserEmeQueries(emerSel);
-                    Toast.makeText(getActivity(), "You have made the query as Emergency.", Toast.LENGTH_LONG).show();
-                } else {
-                    progressBar.setVisibility(View.INVISIBLE);
-                    Toast.makeText(getActivity(), "Cannot add this as emergency. Please try after sometime", Toast.LENGTH_LONG).show();
-                }
-
-            }
-        }
-    }
 }

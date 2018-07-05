@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="15dp"
+    android:layout_marginBottom="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:id="@+id/tvPlacePopulateQueriesAlt"
+        android:textColor="@android:color/black"
+        android:text="hhrhmrhmy"
+        android:visibility="gone"
+        android:background="@drawable/border_custom"
+        android:layout_alignParentTop="true"
+        android:padding="3dp"
+        android:textSize="8dp"
+        android:layout_alignParentLeft="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/tvDatePopulateQueriesAlt"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/tvEmergencyPopulateQueriesAlt"
+        android:text="Emergency"
+        android:textColor="@android:color/white"
+        android:visibility="invisible"
+        android:background="@drawable/border"
+        android:padding="3dp"
+        android:textSize="15dp"
+        android:layout_below="@+id/tvPlacePopulateQueriesAlt"
+        android:layout_alignParentRight="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/tvDatePopulateQueriesAlt"
+        android:textSize="12dp"
+        android:layout_alignBottom="@+id/tvEmergencyPopulateQueriesAlt"
+        android:text="gyuyftfy hg"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvAskUserPopulateQueriesAlt"
+        android:textSize="13dp"
+        android:layout_below="@+id/tvEmergencyPopulateQueriesAlt"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:text="asked by"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/tvQueryPopulateQueriesAlt"
+        android:textColor="@android:color/black"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:clickable="true"
+        android:layout_below="@+id/tvAskUserPopulateQueriesAlt"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvQueryPopulateQueriesAlt"
+        android:id="@+id/rlAnswersPopulateQueriesAlt"
+        android:visibility="gone">
+        <com.user.planb.ExpandableTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textSize="15dp"
+            android:textColor="@android:color/black"
+            android:lineSpacingExtra="2dp"
+            android:id="@+id/etvDescriptionPopulateQueriesAlt"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:id="@+id/llEmergencyPopulateQueriesAlt"
+        android:layout_below="@+id/rlAnswersPopulateQueriesAlt"
+        android:background="@drawable/custom_border">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="14dp"
+            android:textColor="#57cca5"
+            android:textStyle="bold"
+            android:text="Do you want to make this query as emergency?"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            >
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:text="Yes"
+                android:id="@+id/bYesEmergencyPopulateQueriesAlt"
+                android:textColor="#696969"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/custom_border"/>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

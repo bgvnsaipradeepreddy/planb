@@ -7,6 +7,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:id="@+id/tvPlacePopulateQueries"
+        android:textColor="@android:color/black"
+        android:text="hhrhmrhmy"
+        android:visibility="gone"
+        android:background="@drawable/border_custom"
+        android:layout_alignParentTop="true"
+        android:padding="3dp"
+        android:textSize="8dp"
+        android:layout_alignParentLeft="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/tvDatePopulateQueries"
         android:layout_alignParentEnd="true"
         android:id="@+id/tvEmergencyPopulateQueries"
@@ -14,9 +27,9 @@
         android:textColor="@android:color/white"
         android:visibility="invisible"
         android:background="@drawable/border"
-        android:layout_alignParentTop="true"
         android:padding="3dp"
         android:textSize="15dp"
+        android:layout_below="@+id/tvPlacePopulateQueries"
         android:layout_alignParentRight="true" />
     <TextView
         android:layout_width="wrap_content"
@@ -57,100 +70,110 @@
         android:id="@+id/rlAnswersPopulateQueries"
         android:visibility="gone">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ivPopulateQueries"
-        android:layout_marginTop="8dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:src="@drawable/ic_person"
-        />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivPopulateQueries"
+            android:layout_marginTop="8dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_person"
+            />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvNamePopulateQueries"
-        android:layout_marginTop="12dp"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:layout_toEndOf="@+id/ivPopulateQueries"
-        android:layout_toRightOf="@+id/ivPopulateQueries"
-        android:textSize="15dp"
-        android:text="Anonymous"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvNamePopulateQueries"
+            android:layout_marginTop="12dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_toEndOf="@+id/ivPopulateQueries"
+            android:layout_toRightOf="@+id/ivPopulateQueries"
+            android:textSize="15dp"
+            android:text="Anonymous"
+            />
 
-    <com.user.planb.ExpandableTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:textSize="15dp"
-        android:textColor="@android:color/black"
-        android:lineSpacingExtra="2dp"
-        android:id="@+id/etvDescriptionPopulateQueries"
-        android:layout_below="@+id/ivPopulateQueries"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        />
+        <com.user.planb.ExpandableTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textSize="15dp"
+            android:textColor="@android:color/black"
+            android:lineSpacingExtra="2dp"
+            android:id="@+id/etvDescriptionPopulateQueries"
+            android:layout_below="@+id/ivPopulateQueries"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:id="@+id/rlFragmentQuery"
+            android:layout_below="@+id/etvDescriptionPopulateQueries"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:id="@+id/tvCommentPopulateQueries"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginLeft="20dp"
+                android:visibility="gone" />
+        </RelativeLayout>
+        <!--
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:adjustViewBounds="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#eeeeee"
+            android:layout_below="@id/rlFragmentQuery"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                style="?android:attr/buttonBarButtonStyle"
+                android:text="Like"
+                android:layout_weight="1"
+                android:id="@+id/button1"
+                android:textColor="@android:color/black" />
+
+            <View android:layout_height="fill_parent"
+                android:layout_width="3px"
+                android:background="#90909090"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/separator1" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                style="?android:attr/buttonBarButtonStyle"
+                android:text="Comment"
+                android:layout_weight="1"
+                android:id="@+id/bCommentPopulateQueries"
+                android:textColor="@android:color/black" />
+
+        </LinearLayout>-->
+    </RelativeLayout>
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:id="@+id/rlFragmentQuery"
-        android:layout_below="@+id/etvDescriptionPopulateQueries"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/rlAnswersPopulateQueries"
+        android:id="@+id/addCommentPopulateQueries"
         >
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_thumb_up"
-            android:id="@+id/ivLikePopulateQueries"
-            android:adjustViewBounds="true"
-            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="3dp"
-            android:layout_toRightOf="@+id/ivLikePopulateQueries"
-            android:id="@+id/tvLikePopulateQueries"
-            android:textSize="15dp"
-            android:text="15"/>
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginLeft="25dp"
-            android:layout_toRightOf="@+id/tvLikePopulateQueries"
-            android:src="@drawable/ic_thumb_down"
-            android:id="@+id/ivDislikePopulateQueries"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="15dp"
-            android:layout_marginLeft="3dp"
-            android:layout_toRightOf="@+id/ivDislikePopulateQueries"
-            android:id="@+id/tvDislikePopulateQueries"
-            android:text="0"/>
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginLeft="35dp"
-            android:layout_toRightOf="@+id/tvDislikePopulateQueries"
-            android:src="@drawable/ic_comment"
-            android:id="@+id/ivCommentPopulateQueries"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="15dp"
-            android:layout_marginLeft="3dp"
-            android:layout_toRightOf="@+id/ivCommentPopulateQueries"
-            android:text="5"/>
-    </RelativeLayout>
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:text="Add a comment .."
+            android:id="@+id/tvAddCommentPopulateQueries"
+            android:visibility="gone"/>
+
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -158,7 +181,7 @@
         android:layout_marginTop="10dp"
         android:orientation="vertical"
         android:id="@+id/llEmergencyPopulateQueries"
-        android:layout_below="@+id/rlAnswersPopulateQueries"
+        android:layout_below="@+id/addCommentPopulateQueries"
         android:background="@drawable/custom_border">
         <TextView
             android:layout_width="wrap_content"
@@ -177,13 +200,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:text="Yes"
-                android:textColor="#696969"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/custom_border"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:text="No"
+                android:id="@+id/bYesEmergencyPopulateQueries"
                 android:textColor="#696969"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/custom_border"/>

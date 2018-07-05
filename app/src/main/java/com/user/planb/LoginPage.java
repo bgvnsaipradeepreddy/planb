@@ -189,10 +189,13 @@ public class LoginPage extends AppCompatActivity {
                     String userStatus = dataItems.getLoginUserStatus();
                     List<Integer> userSelectedPlaces = new ArrayList<>();
                     userSelectedPlaces = dataItems.getUserSelectedPlaces();
+                    List<Integer> userEmeSel = new ArrayList<>();
+                    userEmeSel = dataItems.getUserEmeSelected();
                     SessionManagement sessionManagement = new SessionManagement(LoginPage.this);
                     sessionManagement.createLoginSession(mailtostring, passwordtostring, userId, userName, userStatus);
                     sessionManagement.saveSelPlaces(userSelectedPlaces);
                     sessionManagement.saveLivedPlaces(lived_places);
+                    sessionManagement.saveUserEmeQueries(userEmeSel);
                     if (userSelectedPlaces.size() > 0) {
                         Bundle bundle = new Bundle();
                         bundle.putInt("user_id", userId);

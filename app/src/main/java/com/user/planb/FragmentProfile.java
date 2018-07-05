@@ -25,6 +25,7 @@ public class FragmentProfile extends Fragment {
     View view;
     ViewPager viewPager;
     TabLayout tabLayout;
+    int userId;
 
     public static FragmentProfile newInstance(){
 
@@ -51,17 +52,20 @@ public class FragmentProfile extends Fragment {
         viewPager = (ViewPager) view.findViewById(R.id.vpFragmentProfile);
 //        setupViewPager(viewPager);
 
+
         tabLayout = (TabLayout) view.findViewById(R.id.tlFragmentProfile);
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimary));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.addTab(tabLayout.newTab().setText("Profile"));
         tabLayout.addTab(tabLayout.newTab().setText("My places"));
-        tabLayout.addTab(tabLayout.newTab().setText("Bookmark"));
+        tabLayout.addTab(tabLayout.newTab().setText("My Queries"));
         tabLayout.setTabTextColors(ContextCompat.getColorStateList(getActivity(),R.color.black_customize));
         //tabLayout.setSelectedTabIndicatorHeight(0);
         //tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        SessionManagement sessionManagement = new SessionManagement(getActivity());
+        userId = sessionManagement.getUserId();
         FragmentProfile.PagerAdapter adapter = new FragmentProfile.PagerAdapter
-                (getChildFragmentManager(), tabLayout.getTabCount());
+                (getChildFragmentManager(), tabLayout.getTabCount(),userId);
         viewPager.setAdapter(adapter);
         //viewPager.getAdapter().notifyDataSetChanged();
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -99,10 +103,12 @@ public class FragmentProfile extends Fragment {
 
     public static class PagerAdapter extends FragmentStatePagerAdapter {
         int mNumOfTabs;
+        int userId;
 
-        public PagerAdapter(FragmentManager fm, int NumOfTabs) {
+        public PagerAdapter(FragmentManager fm, int NumOfTabs,int userId) {
             super(fm);
             this.mNumOfTabs = NumOfTabs;
+            this.userId = userId;
         }
         @Override
         public int getItemPosition(Object object) {
@@ -118,7 +124,7 @@ public class FragmentProfile extends Fragment {
                 case 1:
                     return FragmentMyPlaces.newInstance();
                 case 2:
-                    return FragmentMyPlaces.newInstance();
+                    return FragmentUserQueries.newInstance(userId);
 
                 default:
                     return null;

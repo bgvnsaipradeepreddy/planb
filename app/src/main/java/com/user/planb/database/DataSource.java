@@ -137,4 +137,35 @@ public class DataSource {
         }
         return key_name;
     }
+
+
+    public String getPlaceNameFromId(int placeId){
+
+        String[] projection = {
+                SQliteTables.COLUMN_PLACES_NAME,
+        };
+        String place = null;
+        /**
+         Integer[] item = selPlaces.toArray(new Integer[selPlaces.size()]);
+         Log.e("pradeepdebug10","pradeepdebug"+item);
+         Arrays.sort(item);
+         String[] a=Arrays.toString(item).split("[\\[\\]]")[1].split(", ");
+         String[] mark = new String[a.length];
+         Arrays.fill(mark, "?");
+         String joined = TextUtils.join(",", mark);
+         String selection = SQliteTables.COLUMN_PLACES_DISTRICTS_ID + " IN("+joined+")";
+         String[] selectionArgs = (String[]) a;
+         Log.e("pradeepdebug11","pradeepdebug"+a);
+         */
+        String selection = SQliteTables.COLUMN_PLACES_ID + " = ?";
+        String[] selectionArgs = { String.valueOf(placeId)};
+        Cursor cursor = mDatabase.query(SQliteTables.TABLE_PLACES,projection,selection,selectionArgs,null,null,null);
+        Log.e("cursorout","out");
+        if (cursor.moveToFirst()) {
+            Log.e("cursorin","in");
+            place = cursor.getString(cursor.getColumnIndex(SQliteTables.COLUMN_PLACES_NAME));
+
+        }
+        return place;
+    }
 }

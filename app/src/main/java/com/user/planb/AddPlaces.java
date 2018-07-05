@@ -66,7 +66,7 @@ public class AddPlaces extends AppCompatActivity {
     CoordinatorLayout coordinatorLayout;
     String data;
     int exist;
-    int userId ;
+    int userId;
     ProgressBar progressBar;
     Map<Integer, String> states = new HashMap<Integer, String>();
     Map<Integer, Map<Integer, String>> districts = new HashMap<>();
@@ -78,6 +78,7 @@ public class AddPlaces extends AppCompatActivity {
         setContentView(R.layout.places_add);
         Bundle bundle = getIntent().getExtras();
         exist = bundle.getInt("already");
+        userId = bundle.getInt("user_id");
         DataSource source = new DataSource(AddPlaces.this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.tbAddPlaces);
         progressBar = (ProgressBar) findViewById(R.id.pbAddPlaces);
@@ -109,7 +110,7 @@ public class AddPlaces extends AppCompatActivity {
                         Log.e("xxxxx","xxx"+seletedItems);
                         progressBar.setVisibility(View.VISIBLE);
                         //sessionManagement.saveSelPlaces( userSelPlaces);
-                        userId = sessionManagement.getUserId();
+                        //userId = sessionManagement.getUserId();
                         RequestPackage requestPackage = new RequestPackage();
                         requestPackage.setMethod("POST");
                         requestPackage.setUri(getResources().getString(R.string.server)+"addUserSelectedPlaces");

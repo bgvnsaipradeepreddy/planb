@@ -2,6 +2,7 @@ package com.user.planb.ParserAndUtility;
 
 import android.util.Log;
 
+import com.user.planb.SessionManagement;
 import com.user.planb.model.DataItems;
 
 import org.json.JSONArray;
@@ -27,7 +28,9 @@ public class JsonParser {
         Boolean status = object.getBoolean("status");
 
         JSONArray places  = object.optJSONArray("userSelectedPlaces");
+        JSONArray emergency = object.optJSONArray("emergency");
         List<Integer> placesSel =new ArrayList<>(); //new int[places.length()];
+        List<Integer> emeSel =new ArrayList<>(); //new int[places.length()];
 
 
         if(status.equals(true)){
@@ -45,6 +48,11 @@ public class JsonParser {
             for (int i = 0; i < places.length(); ++i) {
                 placesSel.add(places.optInt(i));
             }
+
+            for (int i = 0; i < emergency.length(); ++i) {
+                emeSel.add(emergency.optInt(i));
+            }
+            dataItems.setUserEmeSelected(emeSel);
             dataItems.setUserSelectedPlaces(placesSel);
             return dataItems;
         }else {
@@ -219,8 +227,9 @@ public class JsonParser {
             return dataItems;
         }
     }
-    public static ArrayList<DataItems> parseQueryFeed(String content) throws JSONException {
+    public static ArrayList<DataItems> parseQueryFeed(String content,int userId) throws JSONException {
         JSONObject object = null;
+
 
         object = new JSONObject(content);
         ArrayList<DataItems> queries = new ArrayList<>();
@@ -234,10 +243,12 @@ public class JsonParser {
                 dataItems.setQueryTitle(jsonObjectChild.getString("title"));
                 dataItems.setQueryContent(jsonObjectChild.getString("query_description"));
                 dataItems.setQueryUserId(jsonObjectChild.getInt("user_id"));
+                dataItems.setQueryPlaceId(jsonObjectChild.getInt("place_id"));
                 dataItems.setQueryEmergency(jsonObjectChild.getInt("emergency"));
                 Boolean answer_status = jsonObjectChild.getBoolean("answer_status");
                 dataItems.setAnswersExists(answer_status);
                 if (answer_status.equals(true)) {
+                    Log.e("705de1","705de1");
                     JSONArray jsonArrayAnswers = jsonObjectChild.getJSONArray("answers");
                     ArrayList<String> answers = new ArrayList<>();
                     ArrayList<Integer> answerIds = new ArrayList<>();
@@ -250,15 +261,112 @@ public class JsonParser {
                         answerIds.add(jsonObjectChildAnswers.getInt("answer_id"));
                         answersUserIds.add(jsonObjectChildAnswers.getInt("user_id"));
                         answersUsers.add(jsonObjectChildAnswers.getString("user_name"));
+                        Log.e("705de2","705de2 before1");
+                        Boolean comment_status = jsonObjectChildAnswers.getBoolean("comment_status");
+                        Log.e("705de2","705de2 before2");
+                        dataItems.setCommentExists(comment_status);
+                        Log.e("705de2","705de2 "+jsonArrayAnswers.length());
+                        if(comment_status.equals(true)){
+                            Log.e("705de3","705de3 before length");
+                            JSONArray jsonArrayComments = jsonObjectChildAnswers.getJSONArray("comments");
+                            ArrayList<String> comments = new ArrayList<>();
+                            ArrayList<Integer> commentIds = new ArrayList<>();
+                            ArrayList<String> commentUsers = new ArrayList<>();
+                            ArrayList<Integer> commentUserIds = new ArrayList<>();
+                            Log.e("705de3","705de3 "+jsonArrayComments.length());
+                            for(int k=0;k<jsonArrayComments.length();k++){
+                                JSONObject jsonObjectChildComments = jsonArrayComments.getJSONObject(k);
+                                comments.add(jsonObjectChildComments.getString("comment"));
+                                commentIds.add(jsonObjectChildComments.getInt("comment_id"));
+                                commentUsers.add(jsonObjectChildComments.getString("user_name"));
+                                commentUserIds.add(jsonObjectChildComments.getInt("user_id"));
+                            }
+                            dataItems.setComments(comments);
+                            dataItems.setCommentIds(commentIds);
+                            dataItems.setCommentUsers(commentUsers);
+                            dataItems.setCommentUserIds(commentUserIds);
+                        }
                     }
                     dataItems.setAnswers(answers);
+                    dataItems.setAnswerIds(answerIds);
                     dataItems.setAnswersUserIds(answersUserIds);
                     dataItems.setAnswersUsers(answersUsers);
                     dataItems.setAnswersUserIds(answersUserIds);
                 }
                 Log.e("pradeepdebug1","");
-                queries.add(dataItems);
+                if(userId == jsonObjectChild.getInt("user_id")){
+
+                }else{
+                    queries.add(dataItems);
+                }
+
             }
+        Log.e("705debug","705 "+queries);
             return queries;
     }
+
+    public static DataItems parsePoolPostFeed(String content) throws JSONException {
+        JSONObject object = null;
+        DataItems dataItems = new DataItems();
+
+        object = new JSONObject(content);
+        Boolean status = object.getBoolean("status");
+
+        if(status.equals(true)){
+            //dataItems = getPlaces(content,dataItems);
+            dataItems.setPoolStatus("successful");
+            return dataItems;
+        } else {
+            String errorMsg = object.getString("result");
+            Log.e("pradeepregister",errorMsg);
+            dataItems.setPoolStatus("unsuccessful");
+            return dataItems;
+        }
+    }
+
+    public static DataItems parsePoolExistsFeed(String content) throws JSONException {
+        JSONObject object = null;
+        DataItems dataItems = new DataItems();
+
+        object = new JSONObject(content);
+        Boolean status = object.getBoolean("status");
+        ArrayList<DataItems> queries = new ArrayList<>();
+        if(status.equals(true)){
+            dataItems.setPoolExists("successful");
+            return dataItems;
+        } else {
+            dataItems.setPoolExists("unsuccessful");
+            return dataItems;
+        }
+    }
+    public static ArrayList<DataItems> parsePoolFeed(String content,int userId) throws JSONException {
+        JSONObject object = null;
+        object = new JSONObject(content);
+        ArrayList<DataItems> pool = new ArrayList<>();
+        JSONArray jsonArray = object.getJSONArray("result");
+        for(int i=0;i<jsonArray.length();i++) {
+            DataItems dataItems = new DataItems();
+            JSONObject jsonObjectChild = jsonArray.getJSONObject(i);
+            dataItems.setPoolId(jsonObjectChild.getInt("pool_id"));
+            dataItems.setPoolUserName(jsonObjectChild.getString("user_name"));
+            dataItems.setPoolCost(jsonObjectChild.getInt("cost_seat"));
+            dataItems.setPoolDstAddress(jsonObjectChild.getString("dst_address"));
+            dataItems.setPoolDstPlace(jsonObjectChild.getString("dst_place"));
+            dataItems.setPoolStartAddress(jsonObjectChild.getString("start_address"));
+            dataItems.setPoolSeats(jsonObjectChild.getInt("seats_available"));
+            dataItems.setPoolStartDate(jsonObjectChild.getString("start_date"));
+            dataItems.setPoolUserComments(jsonObjectChild.getString("user_comments"));
+            dataItems.setPoolStartTime(jsonObjectChild.getString("start_time"));
+            dataItems.setPoolType(jsonObjectChild.getInt("pool_type"));
+            dataItems.setPoolEmailVerification(jsonObjectChild.getInt("email_verification"));
+            dataItems.setPoolPhoneVerification(jsonObjectChild.getInt("phone_verification"));
+            Log.e("pradeepdebug1","");
+            if(userId == jsonObjectChild.getInt("user_id")){
+            }else{
+                pool.add(dataItems);
+            }
+        }
+        return pool;
+    }
+
 }

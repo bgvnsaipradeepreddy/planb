@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="3dp"
+    android:id="@+id/llPopulatePool"
+    android:background="#e2edee"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="3dp"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/tvstartDatePopulatePool"
+            android:text="23-07"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp">
+<!--
+            <TextView
+                android:id="@+id/tvStartTimePopulatePool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8:30"
+                android:textColor="@android:color/black"
+                android:textSize="20dp" />
+-->
+            <TextView
+                android:id="@+id/tvStartPlacePopulatePool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:text="Kormangala"
+                android:textColor="#57cca5"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/tvStartPlace1PopulatePool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvStartPlacePopulatePool"
+                android:ellipsize="end"
+                android:text="4th block, Near Police station, Kormangala, Bangalore"
+                android:textColor="@android:color/black"
+                android:textSize="13dp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/ivPoolVehiclePopulatePool"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_directions_car_black_24dp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+<!--
+            <TextView
+                android:id="@+id/tvEndTimePopulatePool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12:30"
+                android:textColor="@android:color/black"
+                android:textSize="20dp" />
+-->
+            <TextView
+                android:id="@+id/tvEndPlacePopulatePool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:text="chgch"
+                android:textColor="@color/colorgoogle"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/tvEndPlace1PopulatePool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvEndPlacePopulatePool"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="4th block, Near Police station, Kormangala, Bangalore"
+                android:textColor="@android:color/black"
+                android:textSize="13dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp">
+
+            <TextView
+                android:id="@+id/tvCostPopulatePool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:text="400"
+                android:textSize="13dp" />
+
+            <TextView
+                android:id="@+id/tvSeatsAvailPopulatePool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:text="Seats Available"
+                android:textSize="13dp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@android:color/black" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivPopulatePool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/ic_person"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:id="@+id/tvNamePopulatePool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_toEndOf="@+id/ivPopulatePool"
+                android:layout_toRightOf="@+id/ivPopulatePool"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="pradeep reddy"
+                android:textSize="16dp" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>
